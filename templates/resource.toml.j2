@@ -1,0 +1,16 @@
+# {{ansible_managed}}
+# vim ft=toml
+
+[template]
+src = "{{item.template_name | default(item.service_name + '.conf.tmpl')}}"
+dest = "{{item.template_output | default('/etc/default/' + item.service_name)}}"
+keys = [
+  {% for key in item.confd_keys %}
+    "{{key}}",
+  {% endfor %}
+]
+check_cmd = "{{item.check_cmd | default('true')}}"
+reload_cmd = "{{item.reload_cmd | default('sudo service ' + item.service_name + ' restart')}}"
+owner = "{{item.owner | default('root')}}"
+group = "{{item.group | default('root')}}"
+mode = "{{item.mode | default('0644')}}"

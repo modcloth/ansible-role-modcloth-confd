@@ -1,0 +1,10 @@
+---
+confd_version: 0.6.3
+confd: "confd-{{ confd_version }}-linux-amd64"
+confd_download: "https://github.com/kelseyhightower/confd/releases/download/v{{ confd_version }}/{{ confd }}"
+confd_home: /usr/local/bin
+confd_config: /etc/confd
+confd_backend: etcd
+confd_backend_nodes: []
+
+confd_resources: []
