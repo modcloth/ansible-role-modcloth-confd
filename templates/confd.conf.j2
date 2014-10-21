@@ -11,7 +11,8 @@ respawn limit 3 30
 
 script
   confd -interval {{confd_interval}} -backend {{confd_backend}} \
-    {% for node in confd_backend_nodes %}
-    -node {{node}}
-    {% endfor %}
+    {% for node in confd_backend_nodes -%}
+    -node {{node}} \
+    {% endfor -%}
+    --
 end script
