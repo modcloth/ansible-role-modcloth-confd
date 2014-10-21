@@ -31,8 +31,13 @@
     dest="/etc/init/{{confd_service_name}}.conf"
   register: confd_service_templated
 
-- name: start upstart service
+- name: restart upstart service
   service:
     name="{{confd_service_name}}"
     state=restarted
   when: confd_service_templated.changed
+
+- name: start upstart service
+  service:
+    name="{{confd_service_name}}"
+    state=started
