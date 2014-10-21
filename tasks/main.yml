@@ -1,8 +1,8 @@
 ---
 - name: download confd
   get_url:
-    url="{{confd_download}}"
-    dest="{{confd_home}}/confd"
+    url="{{confd_download_url}}"
+    dest="{{confd_binary_path}}"
     mode=0755
 
 - name: create confd config directories
@@ -10,19 +10,19 @@
     state=directory
     path="{{item}}"
   with_items:
-  - "{{confd_config}}/conf.d"
-  - "{{confd_config}}/templates"
+  - "{{confd_config_directory}}/conf.d"
+  - "{{confd_config_directory}}/templates"
 
 - name: create template resource configs
   template:
     src=resource.toml.j2
-    dest="{{confd_config}}/conf.d/{{item.resource_name|default(item.service_name + '.toml')}}"
+    dest="{{confd_config_directory}}/conf.d/{{item.resource_name|default(item.service_name + '.toml')}}"
   with_items: confd_resources
 
 - name: create template configs
   copy:
     src="{{item.template}}"
-    dest="{{confd_config}}/templates/{{item.template_name|default(item.service_name + '.conf.tmpl')}}"
+    dest="{{confd_config_directory}}/templates/{{item.template_name|default(item.service_name + '.conf.tmpl')}}"
   with_items: confd_resources
 
 - name: add cron task

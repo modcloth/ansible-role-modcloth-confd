@@ -22,10 +22,9 @@ See `defaults/main.yml` for defaults.
 
 ```yml
 confd_version: # version of confd to download
-confd: # confd remote filename
-confd_download: # url to download confd from
-confd_home: # where to put the confd binary
-confd_config: # where to store confd configuration
+confd_download_url: # url to download confd from
+confd_binary_path: # where to put the confd binary
+confd_config_directory: # where to store confd configuration
 confd_backend: # which confd backend to use
 confd_backend_nodes: # list of confd backend nodes
 
@@ -33,7 +32,7 @@ confd_backend_nodes: # list of confd backend nodes
 # these are used to generate confd resource.toml's and templates to use during configuration generation
 confd_resources: []
 # each resource is a hash with the following keys:
-# service_name (required): name of the service which uses the confd generated configuration
+# service_name (required): name of the service which uses the confd generated configuration (should have no spaces)
 # template (required): name of the local template to copy up (using copy module)
 # check_cmd (optional): the command to run to check if the generated file is valid (defaults to true)
 # reload_cmd (optional): the command to run to have the service reload the configuration (defaults to "sudo service {{service_name}} restart"
