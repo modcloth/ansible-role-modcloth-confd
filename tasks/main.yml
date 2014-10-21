@@ -28,6 +28,6 @@
 - name: add cron task
   cron:
     name='confd sync'
-    job="confd -onetime -backend {{confd_backend}} {% for node in confd_backend_nodes %} -node {{node}} {% endfor %} >> /var/log/confd-sync.log 2>> /var/log/confd-sync.err"
+    job="{{confd_cmd}}"
     minute='*/1'
     state=present

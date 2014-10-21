@@ -1,2 +1,2 @@
 ---
-# vars file for modcloth.npi
+confd_cmd: "confd -onetime -backend {{confd_backend}} {% for node in confd_backend_nodes %} -node {{node}} {% endfor %} >> /var/log/confd-sync.log 2>> /var/log/confd-sync.err"

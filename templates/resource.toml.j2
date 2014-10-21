@@ -2,15 +2,30 @@
 # vim ft=toml
 
 [template]
-src = "{{item.template_name | default(item.service_name + '.conf.tmpl')}}"
-dest = "{{item.template_output | default('/etc/default/' + item.service_name)}}"
+{% if item.src is defined %}
+src = "{{item.src}}"
+{% endif %}
+{% if item.dest is defined %}
+dest = "{{item.dest}}"
+{% endif %}
+{% if item.check_cmd is defined %}
+check_cmd = "{{item.check_cmd}}"
+{% endif %}
+{% if item.reload_cmd is defined %}
+reload_cmd = "{{item.reload_cmd}}"
+{% endif %}
+{% if item.owner is defined %}
+owner = "{{item.owner}}"
+{% endif %}
+{% if item.group is defined %}
+group = "{{item.group}}"
+{% endif %}
+{% if item.mode is defined %}
+mode = "{{item.mode}}"
+{% endif %}
+
 keys = [
   {% for key in item.confd_keys %}
     "{{key}}",
   {% endfor %}
 ]
-check_cmd = "{{item.check_cmd | default('true')}}"
-reload_cmd = "{{item.reload_cmd | default('sudo service ' + item.service_name + ' restart')}}"
-owner = "{{item.owner | default('root')}}"
-group = "{{item.group | default('root')}}"
-mode = "{{item.mode | default('0644')}}"
