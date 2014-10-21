@@ -5,5 +5,9 @@ confd_binary_location: /usr/local/bin/confd
 confd_config_directory: /etc/confd
 confd_backend: etcd
 confd_backend_nodes: []
+confd_interval: 60
+
+confd_service_template: confd.conf.j2
+confd_service_name: confd
 
 confd_resources: []

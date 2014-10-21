@@ -25,12 +25,14 @@
     dest="{{confd_config_directory}}/templates/{{item.template_name|default(item.service_name + '.conf.tmpl')}}"
   with_items: confd_resources
 
-- name: run confd
-  shell: '{{confd_cmd}}'
+- name: add upstart service
+  template:
+    src="{{confd_service_template}}"
+    dest="/etc/init/{{confd_service_name}}.conf"
+  register: confd_service_templated
 
-- name: add cron task
-  cron:
-    name='confd sync'
-    job="{{confd_cmd}} >> /var/log/confd-sync.log 2>> /var/log/confd-sync.err"
-    minute='*/1'
-    state=present
+- name: start upstart service
+  service:
+    name="{{confd_service_name}}"
+    state=restarted
+  when: confd_service_templated.changed

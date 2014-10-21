@@ -1,2 +1,1 @@
 ---
-confd_cmd: "confd -onetime -backend {{confd_backend}} {% for node in confd_backend_nodes %} -node {{node}} {% endfor %}"

@@ -27,6 +27,10 @@ confd_binary_path: # where to put the confd binary
 confd_config_directory: # where to store confd configuration
 confd_backend: # which confd backend to use
 confd_backend_nodes: # list of confd backend nodes
+confd_interval: # interval on which to run confd (seconds)
+
+confd_service_template: # template to use as upstart job
+confd_service_name: # name to name the service
 
 # list of confd resources
 # these are used to generate confd resource.toml's and templates to use during configuration generation
