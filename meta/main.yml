@@ -1,0 +1,12 @@
+---
+galaxy_info:
+  author: Jesse Szwedko
+  description: Installs and configures confd
+  company: ModCloth, Inc
+  platforms:
+    - name: Ubuntu
+      versions:
+        - trusty
+  categories:
+    - system
+dependencies: []

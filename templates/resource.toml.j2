@@ -1,0 +1,27 @@
+# {{ansible_managed}}
+# vim ft=toml
+
+[template]
+src = "{{item.src}}"
+dest = "{{item.dest}}"
+{% if item.check_cmd is defined %}
+check_cmd = "{{item.check_cmd|replace('%s', '{{.src}}')}}"
+{% endif %}
+{% if item.reload_cmd is defined %}
+reload_cmd = "{{item.reload_cmd}}"
+{% endif %}
+{% if item.owner is defined %}
+owner = "{{item.owner}}"
+{% endif %}
+{% if item.group is defined %}
+group = "{{item.group}}"
+{% endif %}
+{% if item.mode is defined %}
+mode = "{{item.mode}}"
+{% endif %}
+
+keys = [
+  {% for key in item.confd_keys %}
+    "{{key}}",
+  {% endfor %}
+]

@@ -1,0 +1,46 @@
+---
+- name: download confd
+  get_url:
+    url="{{confd_download_url}}"
+    dest="{{confd_binary_path}}"
+    mode=0755
+
+- name: create confd config directories
+  file:
+    state=directory
+    path="{{item}}"
+  with_items:
+  - "{{confd_config_directory}}/conf.d"
+  - "{{confd_config_directory}}/templates"
+
+- name: create template resource configs
+  template:
+    src=resource.toml.j2
+    dest="{{confd_config_directory}}/conf.d/{{item.name}}.toml"
+  with_items: confd_resources
+
+- name: create template configs
+  template:
+    src="{{item.template}}"
+    dest="{{confd_config_directory}}/templates/{{item.src}}"
+  with_items: confd_resources
+
+- name: run confd
+  shell: "confd -onetime -backend {{confd_backend}} {% for node in confd_backend_nodes %} -node {{node}} {% endfor %}"
+
+- name: add upstart service
+  template:
+    src="{{confd_service_template}}"
+    dest="/etc/init/{{confd_service_name}}.conf"
+  register: confd_service_templated
+
+- name: restart upstart service
+  service:
+    name="{{confd_service_name}}"
+    state=restarted
+  when: confd_service_templated.changed
+
+- name: start upstart service
+  service:
+    name="{{confd_service_name}}"
+    state=started
