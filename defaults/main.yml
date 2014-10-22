@@ -1,7 +1,7 @@
 ---
 confd_version: 0.6.3
 confd_download_url: "https://github.com/kelseyhightower/confd/releases/download/v{{ confd_version }}/confd-{{ confd_version}}-linux-amd64"
-confd_binary_location: /usr/local/bin/confd
+confd_binary_path: /usr/local/bin/confd
 confd_config_directory: /etc/confd
 confd_backend: etcd
 confd_backend_nodes: []
