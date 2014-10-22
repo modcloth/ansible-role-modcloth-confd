@@ -2,3 +2,4 @@
 - hosts: all
   roles:
   - role: modcloth.confd
+    etcd_backend: env
