@@ -38,13 +38,14 @@ confd_resources: []
 # each resource is a hash with the following keys:
 # service_name (required): name of the service which uses the confd generated configuration (should have no spaces)
 # template (required): name of the local template to copy up (using copy module)
-# check_cmd (optional): the command to run to check if the generated file is valid
+# name (required): name of resource (used in filename generation)
+# src (required): name of the template on the remote system
+# dest (required): where to write the template after processing
+# check_cmd (optional): the command to run to check if the generated file is valid. %s will be replaced with {{.src}} to get around Jinja templating
 # reload_cmd (optional): the command to run to have the service reload the configuration
 # owner (optional): user who should own the generated file
 # group (optional): group who should own the generated file
 # mode (optional): the file mode of the generated file
-# src (optional): name of the template on the remote system
-# dest (optional): where to write the template after processing
 # confd_keys (optional): list of keys for confd to check
 ```
 

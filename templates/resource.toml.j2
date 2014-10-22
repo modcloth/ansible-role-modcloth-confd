@@ -2,14 +2,10 @@
 # vim ft=toml
 
 [template]
-{% if item.src is defined %}
 src = "{{item.src}}"
-{% endif %}
-{% if item.dest is defined %}
 dest = "{{item.dest}}"
-{% endif %}
 {% if item.check_cmd is defined %}
-check_cmd = "{{item.check_cmd}}"
+check_cmd = "{{item.check_cmd|replace('%s', '{{.src}}')}}"
 {% endif %}
 {% if item.reload_cmd is defined %}
 reload_cmd = "{{item.reload_cmd}}"
